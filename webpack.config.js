@@ -1,5 +1,6 @@
 let path = require('path');
 let webpack = require('webpack');
+let Dotenv = require('dotenv-webpack');
 
 module.exports = {
     devtool: 'source-map',
@@ -23,6 +24,7 @@ module.exports = {
         ]
     },
     plugins: [
+	new Dotenv(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
