@@ -36,42 +36,46 @@ export default class Chat extends Component {
         return (
             <div>
                 <MessageArea messages={state.messages} conf={this.props.conf}/>
-
-                <input class="textarea" type="text" placeholder={this.props.conf.placeholderText}
-                       ref={(input) => { this.input = input }}
-                       onKeyPress={this.handleKeyPress}/>
-
-                <a class="banner" href="https://github.com/idoco/intergram" target="_blank">
-                    Powered by <b>Intergram</b>&nbsp;
-                </a>
+                <div class="input-area">
+                    <textarea class="messageInput" rows="3" type="text" placeholder={this.props.conf.placeholderText}
+                        ref={(input) => { this.input = input }}
+                        onKeyPress={this.handleKeyPress}/>
+                    <button class="messageSend" onClick={this.handleSend}>Send</button>
+                </div>
             </div>
         );
     }
 
     handleKeyPress = (e) => {
         if (e.keyCode == 13 && this.input.value) {
-            let text = this.input.value;
-            this.socket.send({text, from: 'visitor', visitorName: this.props.conf.visitorName});
-            this.input.value = '';
-
-            if (this.autoResponseState === 'pristine') {
-
-                setTimeout(() => {
-                    this.writeToMessages({
-                        text: this.props.conf.autoResponse,
-                        from: 'admin'});
-                }, 500);
-
-                this.autoResponseTimer = setTimeout(() => {
-                    this.writeToMessages({
-                        text: this.props.conf.autoNoResponse,
-                        from: 'admin'});
-                    this.autoResponseState = 'canceled';
-                }, 60 * 1000);
-                this.autoResponseState = 'set';
-            }
+            return;
         }
     };
+
+    handleSend = () => {
+        console.log('handleSend');
+        let text = document.querySelector(".messageInput").value;
+        console.log(text);
+        this.socket.send({text, from: 'visitor', visitorName: this.props.conf.visitorName});
+        this.input.value = '';
+
+        if (this.autoResponseState === 'pristine') {
+
+            setTimeout(() => {
+                this.writeToMessages({
+                    text: this.props.conf.autoResponse,
+                    from: 'admin'});
+            }, 500);
+
+            this.autoResponseTimer = setTimeout(() => {
+                this.writeToMessages({
+                    text: this.props.conf.autoNoResponse,
+                    from: 'admin'});
+                this.autoResponseState = 'canceled';
+            }, 60 * 1000);
+            this.autoResponseState = 'set';
+        }
+    }
 
     incomingMessage = (msg) => {
         this.writeToMessages(msg);

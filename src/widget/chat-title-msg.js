@@ -17,9 +17,7 @@ export default class ChatTitleMsg extends Component {
                         top: 0,
                         right: '130px',
                         marginTop: '23px',
-                        borderRadius: '5px',
                         padding: '15px 20px',
-                        boxShadow: '#8e8d8d -3px 2px 20px',
                     }}
                 >
                     {conf.introMessage}
@@ -47,7 +45,6 @@ export default class ChatTitleMsg extends Component {
                         height: '60px',
                         width: '60px',
                         borderRadius: '999px',
-                        boxShadow: '#8e8d8d -3px 2px 20px',
                         border: '2px solid '+conf.mainColor
                     }}
                 >
@@ -55,7 +52,6 @@ export default class ChatTitleMsg extends Component {
                         <svg style={{
                                 width: '100%',
                                 height: 'auto',
-                                borderRadius: '999px'
                             }}
                             fill="#000000" height="24" viewBox="0 0 24 24" width="24"
                             xmlns="http://www.w3.org/2000/svg">

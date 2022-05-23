@@ -15,6 +15,7 @@ export default class MessageArea extends Component {
 
     render(props,{}) {
         const currentTime = new Date();
+        console.log(props.messages)
         return (
             <ol class="chat">
                 {props.messages.map(({name, text, from, time}) => {
@@ -24,7 +25,7 @@ export default class MessageArea extends Component {
                     return (
                         <li class={from}>
                             <div class="msg">
-                                <p>{name ? name + ': ' + text : text}</p>
+                                <p>{(text.length > 0)?text.split('\n').map((line, i) => {return <p class="line">{line}</p>;}): ""}</p>
                                 { (props.conf.displayMessageTime) ?
                                     <div class="time">
                                         {
